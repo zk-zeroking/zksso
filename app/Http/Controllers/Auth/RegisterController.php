@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Service\SSORefererService;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -38,6 +39,9 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
+        if (SSORefererService::getSSORefererAppId()) {
+            $this->redirectTo = '/sso/login';
+        }
         $this->middleware('guest');
     }
 
