@@ -17,7 +17,7 @@
            <ul class="layui-tab-title">
                <li class="layui-this">账号登录</li>
                @if(!isset($open_id))
-               <li>第三方登录</li>
+               <li>第三方登录{{$open_id ?? 'xx'}}</li>
                @endif
                <li lay-id="register">注册</li>
            </ul>
