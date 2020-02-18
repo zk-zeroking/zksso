@@ -29,7 +29,7 @@ class QQLoginCallbackController extends Controller
             ]);
         if ($thirdAccount->count()) {
             $thirdAccount = $thirdAccount->get(['user_id']);
-            $user = User::find($thirdAccount->user_id);
+            $user = User::find($thirdAccount->get('user_id'));
             Auth::login($user);
             return redirect('/home');
         } else {
