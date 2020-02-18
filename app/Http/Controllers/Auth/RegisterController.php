@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Service\SSORefererService;
+use App\Http\Service\ThirdAccountService;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -73,5 +75,16 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+    protected function registered(Request $request, $user)
+    {
+        if($request->has('open_id')) {
+            ThirdAccountService::instance()->bind(
+                $request->post('platform'),
+                $request->post('open_id'),
+                $user->id
+            );
+        }
+        redirect()->intended($this->redirectPath());
     }
 }
