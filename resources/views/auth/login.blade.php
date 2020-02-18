@@ -16,8 +16,8 @@
        <div class="layui-tab layui-tab-brief" lay-filter="tab">
            <ul class="layui-tab-title">
                <li class="layui-this">账号登录</li>
-               @if(!isset($open_id))
-               <li>第三方登录{{$open_id ?? 'xx'}}</li>
+               @if(!session('open_id'))
+               <li>第三方登录</li>
                @endif
                <li lay-id="register">注册</li>
            </ul>
@@ -25,6 +25,10 @@
                <div class="layui-tab-item layui-show tab-width">
                    <form class="layui-form" method="POST" action="{{ route('login') }}">
                        @csrf
+                       @if(session('open_id'))
+                           <input hidden name="open_id" value="{{session('open_id')}}">
+                           <input hidden name="platform" value="{{session('platform')}}">
+                       @endif
                        <div class="layui-form-item">
                            <label class="layui-form-label">邮箱</label>
                            <div class="layui-input-inline">
@@ -64,7 +68,7 @@
                        </div>
                    </form>
                </div>
-               @if(!isset($open_id))
+               @if(!session('open_id'))
                <div class="layui-tab-item tab-width">
                    <a class="layui-btn layui-btn-radius layui-btn-primary" onclick="qq_login()">QQ登录</a>
                </div>
@@ -72,6 +76,10 @@
                <div class="layui-tab-item tab-width">
                    <form class="layui-form" method="POST" action="{{ route('register') }}">
                        @csrf
+                       @if(session('open_id'))
+                           <input hidden name="open_id" value="{{session('open_id')}}">
+                           <input hidden name="platform" value="{{session('platform')}}">
+                       @endif
                        <div class="layui-form-item">
                            <label class="layui-form-label">姓名</label>
                            <div class="layui-input-inline">

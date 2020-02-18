@@ -33,7 +33,7 @@ class QQLoginCallbackController extends Controller
             Auth::login($user);
             return redirect('/home');
         } else {
-            return redirect('/login')->with('open_id',$openId);
+            return redirect('/login')->with('open_id',$openId)->with('platform','qq');
         }
     }
 
