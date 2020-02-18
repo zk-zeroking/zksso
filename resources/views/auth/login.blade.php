@@ -141,15 +141,6 @@
                //…
            });
            function qq_login() {
-               // layer.open({
-               //     type: 2,
-               //     title: 'QQ登录',
-               //     shadeClose: true,
-               //     shade: false,
-               //     maxmin: true, //开启最大化最小化按钮
-               //     area: ['893px', '600px'],
-               //     content: '/qq/login'
-               // });
                window.location = "/qq/login"
            }
        </script>

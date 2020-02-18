@@ -11,7 +11,10 @@ namespace App\Http\Controllers\Auth\QQ;
 
 use App\Http\Controllers\Controller;
 use App\Http\Service\QQService;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class QQLoginCallbackController extends Controller
 {
@@ -19,7 +22,19 @@ class QQLoginCallbackController extends Controller
         $qq = QQService::instance()->qq();
         $qq->qq_callback();
         $openId = $qq->get_openid();
-
+        $thirdAccount = DB::table('third_account')
+            ->where([
+                'platform' => 'qq',
+                'third_open_id' => $openId
+            ]);
+        if ($thirdAccount->count()) {
+            $thirdAccount = $thirdAccount->get(['user_id']);
+            $user = User::find($thirdAccount->user_id);
+            Auth::login($user);
+            return redirect('/home');
+        } else {
+            return redirect('/login?open_id='.$openId);
+        }
     }
 
 }
