@@ -1,73 +1,156 @@
-@extends('layouts.app')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+@extends('common.common')
+@section('header')
+    <style>
+        .login{
+            justify-content: center;
+            display: flex;
+        }
+        .tab-width{
+            width: 400px;
+        }
+    </style>
+@stop
+@section('body')
+   <div class="login">
+       <div class="layui-tab layui-tab-brief" lay-filter="tab">
+           <ul class="layui-tab-title">
+               <li class="layui-this">账号登录</li>
+               <li>第三方登录</li>
+               <li lay-id="register">注册</li>
+           </ul>
+           <div class="layui-tab-content">
+               <div class="layui-tab-item layui-show tab-width">
+                   <form class="layui-form" method="POST" action="{{ route('login') }}">
+                       @csrf
+                       <div class="layui-form-item">
+                           <label class="layui-form-label">邮箱</label>
+                           <div class="layui-input-inline">
+                               <input type="email" name="email" required  lay-verify="required" placeholder="请输入邮箱地址" autocomplete="off" class="layui-input">
+                           </div>
+                           @error('email')
+                           <div class="layui-form-mid layui-word-aux" style="color: red !important;">{{ $message }}</div>
+                           @enderror
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+                       </div>
+                       <div class="layui-form-item">
+                           <label class="layui-form-label">密码</label>
+                           <div class="layui-input-inline">
+                               <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                           </div>
+                           @error('password')
+                           <div class="layui-form-mid layui-word-aux" style="color: red !important;">{{ $message }}</div>
+                           @enderror
+                       </div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                       <div class="layui-form-item">
+                           <div class="layui-input-block">
+                               <input type="checkbox" name="remember" title="记住我" lay-skin="primary" {{ old('remember') ? 'checked' : '' }}>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                           </div>
+                       </div>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                       <div class="layui-form-item">
+                           <div class="layui-input-block">
+                               <button class="layui-btn layui-btn-radius" type="submit">登录</button>
+                               @if (Route::has('password.request'))
+                                   <a class="layui-btn layui-btn-radius layui-btn-primary" href="{{ route('password.request') }}">
+                                       忘记密码？
+                                   </a>
+                               @endif
+                           </div>
+                       </div>
+                   </form>
+               </div>
+               <div class="layui-tab-item tab-width">
+                   <a class="layui-btn layui-btn-radius layui-btn-primary" onclick="qq_login()">QQ登录</a>
+               </div>
+               <div class="layui-tab-item tab-width">
+                   <form class="layui-form" method="POST" action="{{ route('register') }}">
+                       @csrf
+                       <div class="layui-form-item">
+                           <label class="layui-form-label">姓名</label>
+                           <div class="layui-input-inline">
+                               <input type="text" name="name" value="{{ old('name') }}" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                           </div>
+                           @error('name')
+                           <div class="layui-form-mid layui-word-aux" style="color: red !important;">{{ $message }}</div>
+                           @enderror
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                       </div>
+                       <div class="layui-form-item">
+                           <label class="layui-form-label">邮箱</label>
+                           <div class="layui-input-inline">
+                               <input type="email" name="email" required  lay-verify="required" placeholder="请输入邮箱地址" autocomplete="off" class="layui-input">
+                           </div>
+                           @error('email')
+                           <div class="layui-form-mid layui-word-aux" style="color: red !important;">{{ $message }}</div>
+                           @enderror
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                       </div>
+                       <div class="layui-form-item">
+                           <label class="layui-form-label">密码</label>
+                           <div class="layui-input-inline">
+                               <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                           </div>
+                           @error('password')
+                           <div class="layui-form-mid layui-word-aux" style="color: red !important;">{{ $message }}</div>
+                           @enderror
+                       </div>
+                       <div class="layui-form-item">
+                           <label class="layui-form-label">确认密码</label>
+                           <div class="layui-input-inline">
+                               <input type="password" name="password_confirmation" required lay-verify="required" placeholder="请再次输入密码" autocomplete="off" class="layui-input">
+                           </div>
+                           @error('password')
+                           <div class="layui-form-mid layui-word-aux" style="color: red !important;">{{ $message }}</div>
+                           @enderror
+                       </div>
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                       <div class="layui-form-item">
+                           <div class="layui-input-block">
+                               <button class="layui-btn layui-btn-radius" type="submit">注册</button>
+                           </div>
+                       </div>
+                   </form>
+               </div>
+           </div>
+       </div>
 
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+       <script>
+           //Demo
+           layui.use('form', function(){
+               var form = layui.form;
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
+               //监听提交
+               form.on('submit(formDemo)', function(data){
+                   layer.msg(JSON.stringify(data.field));
+                   return false;
+               });
+               form.render()
+           });
+           layui.use('element', function(){
+               var element = layui.element;
+               element.on('tab(tab)', function(){
+                   {{--if (this.getAttribute('lay-id') == 'register') {--}}
+                       {{--window.location = "{{ route('register') }}"--}}
+                   {{--}--}}
+               });
+                element.init()
+               //…
+           });
+           function qq_login() {
+               layer.open({
+                   type: 2,
+                   title: 'QQ登录',
+                   shadeClose: true,
+                   shade: false,
+                   maxmin: true, //开启最大化最小化按钮
+                   area: ['893px', '600px'],
+                   content: '/qq/login'
+               });
+           }
+       </script>
+   </div>
+@stop

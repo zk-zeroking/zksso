@@ -11,6 +11,29 @@
 |
 */
 
+Route::middleware(['auth'])->group(function () {
+    Route::namespace('App')->group(function () {
+        Route::prefix('app')->group(function () {
+            Route::get('/list/data','ListController@get');
+            Route::get('/edit','EditController@index');
+            Route::post('/edit','EditController@edit');
+            Route::post('/del','DeleteController@del');
+        });
+        Route::get('/app/list','ListController@index');
+        Route::get('/app/create','CreateController@index');
+        Route::post('/app/create','CreateController@create');
+    });
+});
+//第三方登录
+Route::namespace('Auth')->group(function () {
+    Route::namespace('QQ')->group(function () {
+        Route::prefix('qq')->group(function () {
+            Route::get('login','QQLoginController@index');
+            Route::get('login/callback','QQLoginCallbackController@index');
+        });
+
+    });
+});
 Route::get('/sso/login','SSOController@login')->middleware(['sso.referer','auth']);
 
 Auth::routes();
