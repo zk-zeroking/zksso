@@ -16,7 +16,7 @@
        <div class="layui-tab layui-tab-brief" lay-filter="tab">
            <ul class="layui-tab-title">
                <li class="layui-this">账号登录</li>
-               @if(!$open_id)
+               @if(!isset($open_id))
                <li>第三方登录</li>
                @endif
                <li lay-id="register">注册</li>
@@ -64,7 +64,7 @@
                        </div>
                    </form>
                </div>
-               @if(!$open_id)
+               @if(!isset($open_id))
                <div class="layui-tab-item tab-width">
                    <a class="layui-btn layui-btn-radius layui-btn-primary" onclick="qq_login()">QQ登录</a>
                </div>
