@@ -1,2 +1,2 @@
 <?php die('forbidden'); ?>
-{"appid":"101851258","appkey":"ceaec3d32fcc6b03ab721ec73b9d72e8","callback":"/qq/login/callback","scope":"get_user_info","errorReport":true,"storageType":"file","host":"localhost","user":"root","password":"root","database":"test"}
+{"appid":"101851258","appkey":"ceaec3d32fcc6b03ab721ec73b9d72e8","callback":"https://sso.zkphp.com/qq/login/callback","scope":"get_user_info","errorReport":true,"storageType":"file","host":"localhost","user":"root","password":"root","database":"test"}
