@@ -22,10 +22,14 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="">退了</a></li>
+            <li class="layui-nav-item">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <a  onclick="logout()" >退了</a>
+                </form>
+            </li>
         </ul>
     </div>
 
@@ -75,6 +79,9 @@
     }($));
     function tab(url) {
         $('iframe').attr('src',url)
+    }
+    function logout() {
+        $('form#logout-form').submit()
     }
 </script>
 </body>
