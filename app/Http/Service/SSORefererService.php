@@ -9,56 +9,39 @@
 namespace App\Http\Service;
 
 
+use App\Sso\RefererUser;
 use Illuminate\Support\Facades\Auth;
 
 class SSORefererService
 {
-    const SSO_REFERER_APP_ID_STRING = 'sso_referfer_app_id_string';
-    const SSO_REFERER_URL_STRING = 'sso_referfer_url_string';
-    const SSO_CALLBACK_URL_STRING = 'sso_callback_url_string';
-    const SSO_CALLBACK_PARAM_STRING = 'sso_callback_PARAM_string';
-    const SSO_VISIT_APP_STRING = 'sso_visit_app';
-
     public static function setSSORefererAppId($refererAppId){
-        return self::set(self::SSO_VISIT_APP_STRING, $refererAppId);
+        return RefererUser::setAppId($refererAppId);
     }
     public static function setSSORefererUrl($refererUrl) {
-        return self::set(self::SSO_REFERER_URL_STRING, $refererUrl);
+        return RefererUser::setRefererUrl($refererUrl);
     }
     public static function setSSOCallbackUrl($url) {
-        return self::set(self::SSO_CALLBACK_URL_STRING, $url);
+        return RefererUser::setCallbackUrl($url);
     }
     public static function setCallbackParam($param) {
-        return self::set(self::SSO_CALLBACK_PARAM_STRING,$param);
+        return RefererUser::setCallbackParam($param);
     }
 
     public static function getSSORefererAppId(){
-        return self::get(self::SSO_VISIT_APP_STRING);
+        return RefererUser::getAppId();
     }
     public static function getSSORefererUrl() {
-        return self::get(self::SSO_REFERER_URL_STRING);
+        return RefererUser::getRefererUrl();
     }
     public static function getSSOCallbackUrl() {
-        return self::get(self::SSO_CALLBACK_URL_STRING);
+        return RefererUser::getCallbackUrl();
     }
     public static function getCallbackParam() {
-        return self::get(self::SSO_CALLBACK_PARAM_STRING);
+        return RefererUser::getCallbackParam();
     }
 
     public static function delRefererLog(){
-        return session()->forget([
-            self::SSO_VISIT_APP_STRING,
-            self::SSO_CALLBACK_PARAM_STRING,
-            self::SSO_CALLBACK_URL_STRING,
-            self::SSO_REFERER_URL_STRING,
-            self::SSO_REFERER_APP_ID_STRING
-        ]);
-    }
-    private static function set($key, $value) {
-        return session()->put($key,$value);
-    }
-    private static function get($key) {
-        return session()->get($key,false);
+        return RefererUser::destruct();
     }
 
 }
