@@ -20,10 +20,11 @@ class SSOReferer
         if($request->route('refererData') || $request->get('data'))
         {
             if ($request->route('refererData')) {
-                $data = RsaService::instance()->decrypt($request->route('refererData'));
+                $refererData = str_replace('___','/',$request->route('refererData'));
             } else {
-                $data = RsaService::instance()->decrypt($request->get('data'));
+                $refererData = str_replace('___','/',$request->get('data'));
             }
+            $data = RsaService::instance()->decrypt($refererData);
             SSORefererService::setSSORefererAppId($data['app_id']);
             SSORefererService::setSSOCallbackUrl($data['callback']);
             SSORefererService::setCallbackParam($data['callback_param']);
