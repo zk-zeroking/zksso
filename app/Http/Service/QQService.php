@@ -9,8 +9,9 @@
 namespace App\Http\Service;
 
 use App\Sso\RefererUser;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Request;
-use League\Flysystem\Config;
+
 
 require_once 'QQ_API/qqConnectAPI.php';
 class QQService
