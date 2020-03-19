@@ -21,8 +21,8 @@ class Oauth{
     protected $error;
     
 
-    function __construct(){
-        $this->recorder = new Recorder();
+    function __construct($qqConfig){
+        $this->recorder = new Recorder($qqConfig);
         $this->urlUtils = new URL();
         $this->error = new ErrorCase();
     }

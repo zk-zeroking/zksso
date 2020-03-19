@@ -22,8 +22,8 @@ class QC extends Oauth{
      * @param string $openid        openid value
      * @return Object QC
      */
-    public function __construct($access_token = "", $openid = ""){
-        parent::__construct();
+    public function __construct($qqConfig, $access_token = "", $openid = ""){
+        parent::__construct($qqConfig);
 
         //如果access_token和openid为空，则从session里去取，适用于demo展示情形
         if($access_token === "" || $openid === ""){

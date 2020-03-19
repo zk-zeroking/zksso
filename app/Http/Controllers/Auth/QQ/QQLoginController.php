@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Auth\QQ;
 
 use App\Http\Controllers\Controller;
 use App\Http\Service\QQService;
+use App\Sso\RefererUser;
 
 class QQLoginController extends Controller
 {

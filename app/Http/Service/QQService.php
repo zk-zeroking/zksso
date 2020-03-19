@@ -22,7 +22,7 @@ class QQService
     {
         $qqConfig = Config::get('sso.third_platform.qq');
         $qqConfig['callback'] = $this->getCallbackUrl();
-        self::$qq = new \QC();
+        self::$qq = new \QC($qqConfig);
     }
     private function __clone(){}
     public static function instance(){
