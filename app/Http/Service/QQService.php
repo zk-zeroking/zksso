@@ -36,7 +36,7 @@ class QQService
     }
     private function getCallbackUrl(){
         $host = Request::server('HTTP_HOST');
-
+        var_dump(Request::server());die;
         $host = $host . 'qq/login/callback';
         if (RefererUser::isSsoReferer()) {
             $referferData = [
