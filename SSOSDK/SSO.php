@@ -28,6 +28,6 @@ class SSO
         );
         $data = Rsa::instance()->encrypt($param);
         $data = str_replace('/','___',$data);
-        header("Location:{$ssoDomain}/sso/login/{$data}");
+        header("Location:{$ssoDomain}/sso/login?data={$data}");
     }
 }
