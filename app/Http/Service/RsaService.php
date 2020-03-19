@@ -54,7 +54,7 @@ class RsaService
     public function pubEncrypt($data) {
         $encrypted = '';
         $data = json_encode($data);
-        openssl_private_encrypt($data,$encrypted,$this->public_key);
+        openssl_public_encrypt($data,$encrypted,$this->public_key);
         return $this->base64Handle($encrypted,'encrypt');
     }
 
