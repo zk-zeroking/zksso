@@ -47,6 +47,6 @@ class QQService
             $referferDataEnt = RsaService::instance()->pubEncrypt($referferData);
             //$host = $host . '?data=' . $referferDataEnt;
         }
-        return urlencode($host);
+        return ($host);
     }
 }
