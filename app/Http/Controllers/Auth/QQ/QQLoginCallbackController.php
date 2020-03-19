@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Auth\QQ;
 
 use App\Http\Controllers\Controller;
 use App\Http\Service\QQService;
+use App\Sso\RefererUser;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +32,7 @@ class QQLoginCallbackController extends Controller
             $userid = $thirdAccount->value('user_id');
             $user = User::find($userid);
             Auth::login($user);
-            return redirect('/home');
+            return redirect(RefererUser::getCallbackUrl());
         } else {
             return redirect('/login')->with('open_id',$openId)->with('platform','qq');
         }
