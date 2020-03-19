@@ -44,7 +44,7 @@ class QQService
                 'callback_param' => RefererUser::getCallbackParam(),
             ];
             $referferDataEnt = RsaService::instance()->pubEncrypt($referferData);
-            //$host = $host . '?data=' . $referferDataEnt;
+            $host = $host . '?data=' . $referferDataEnt;
         }
         return urlencode($host);
     }
