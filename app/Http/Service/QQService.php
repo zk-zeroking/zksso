@@ -35,8 +35,7 @@ class QQService
         return self::$qq;
     }
     private function getCallbackUrl(){
-        $host = Request::server('HTTP_HOST');
-        var_dump(Request::server());die;
+        $host = Request::server('REQUEST_SCHEME').'://'.Request::server('HTTP_HOST');
         $host = $host . 'qq/login/callback';
         if (RefererUser::isSsoReferer()) {
             $referferData = [
@@ -45,8 +44,8 @@ class QQService
                 'callback_param' => RefererUser::getCallbackParam(),
             ];
             $referferDataEnt = RsaService::instance()->pubEncrypt($referferData);
-            //$host = $host . '?data=' . $referferDataEnt;
+            $host = $host . '?data=' . $referferDataEnt;
         }
-        return ($host);
+        return urlencode($host);
     }
 }
