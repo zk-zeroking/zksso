@@ -28,7 +28,7 @@ Route::middleware(['auth'])->group(function () {
 Route::namespace('Auth')->group(function () {
     Route::namespace('QQ')->group(function () {
         Route::prefix('qq')->group(function () {
-            Route::get('login','QQLoginController@index');
+            Route::get('login/{refererData?}','QQLoginController@index')->middleware(['sso.referer']);
             Route::get('login/callback/{refererData?}','QQLoginCallbackController@index')->middleware(['sso.referer']);
         });
 
