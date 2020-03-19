@@ -75,6 +75,13 @@ class RefererUser
     public static function getCallbackParam() {
         return self::getInstance()->get('callbackParam');
     }
+    public static function isSsoReferer(){
+        if (self::getAppId()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     /**
      * get instance
      * @return RefererUser

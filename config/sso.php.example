@@ -1,0 +1,28 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: zeroking
+ * Date: 2020-03-18
+ * Time: 19:08
+ */
+return [
+    'third_platform' => [
+        'qq' => [
+            'appid' => '',
+            'appkey'=> '',
+            'callback' => '',
+            'scope' => 'get_user_info',
+            'errorReport' => true ,
+            'storageType' => 'file',
+            'host' => 'localhost',
+            'user' => 'root',
+            'password' => 'root',
+            'database' => 'test'
+
+        ]
+    ],
+    'rsa' => [
+      'private_key' => '',
+      'public_key' => ''
+    ],
+];

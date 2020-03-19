@@ -27,6 +27,6 @@ class SSO
             'callback_param' =>$callback_param
         );
         $data = Rsa::instance()->encrypt($param);
-        header("Location:{$ssoDomain}/sso/login?referer=app&data={$data}");
+        header("Location:{$ssoDomain}/sso/login/{$data}");
     }
 }

@@ -29,12 +29,12 @@ Route::namespace('Auth')->group(function () {
     Route::namespace('QQ')->group(function () {
         Route::prefix('qq')->group(function () {
             Route::get('login','QQLoginController@index');
-            Route::get('login/callback','QQLoginCallbackController@index');
+            Route::get('login/callback/{refererData?}','QQLoginCallbackController@index')->middleware(['sso.referer']);
         });
 
     });
 });
-Route::get('/sso/login','SSOController@login')->middleware(['sso.referer','auth']);
+Route::get('/sso/login/{refererData?}','SSOController@login')->middleware(['sso.referer','auth']);
 
 Auth::routes();
 

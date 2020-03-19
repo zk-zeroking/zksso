@@ -17,9 +17,9 @@ class SSOReferer
      */
     public function handle($request, Closure $next)
     {
-        if($request->get('referer') == 'app')
+        if($request->route('refererData'))
         {
-            $data = RsaService::instance()->decrypt($request->get('data'));
+            $data = RsaService::instance()->decrypt($request->route('refererData'));
             SSORefererService::setSSORefererAppId($data['app_id']);
             SSORefererService::setSSOCallbackUrl($data['callback']);
             SSORefererService::setCallbackParam($data['callback_param']);
