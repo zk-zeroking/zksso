@@ -11,9 +11,8 @@ class Recorder{
     private $inc;
     private $error;
 
-    public function __construct($config = []){
+    public function __construct($config){
         $this->error = new ErrorCase();
-
         $this->inc = $config;
         if(empty($this->inc)){
             $this->error->showError("20001");
@@ -39,10 +38,10 @@ class Recorder{
     }
 
     public function readInc($name){
-        if(empty($this->inc->$name)){
+        if(empty($this->inc[$name])){
             return null;
         }else{
-            return $this->inc->$name;
+            return $this->inc[$name];
         }
     }
 
