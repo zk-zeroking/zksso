@@ -66,10 +66,11 @@ class Oauth{
             "client_secret" => $this->recorder->readInc("appkey"),
             "code" => $_GET['code']
         );
-        var_dump($keysArr);die;
         //------构造请求access_token的url
         $token_url = $this->urlUtils->combineURL(self::GET_ACCESS_TOKEN_URL, $keysArr);
         $response = $this->urlUtils->get_contents($token_url);
+
+        var_dump($response);die;
 
         if(strpos($response, "callback") !== false){
 
