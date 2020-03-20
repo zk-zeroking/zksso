@@ -20,9 +20,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            if (SSORefererService::getSSORefererAppId()) {
-                return redirect('/sso/login/'. $request->get('data'));
-            }
+
             return redirect(RouteServiceProvider::HOME);
         }
 

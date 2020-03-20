@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Service\SSORefererService;
 use App\Http\Service\ThirdAccountService;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -48,7 +49,7 @@ class LoginController extends Controller
                 $user->id
             );
         }
-        redirect()->intended($this->redirectPath());
+        redirect()->intended($this->redirectPath($request));
     }
     public function showLoginForm(Request $request)
     {
@@ -58,5 +59,11 @@ class LoginController extends Controller
             $qqLoginUrl = route('qq_login');
         }
         return view('auth.login')->with('qq_login_url',$qqLoginUrl);
+    }
+    public function redirectPath(Request $request)
+    {
+        if (SSORefererService::getSSORefererAppId()) {
+            return redirect('/sso/login/'. $request->get('data'));
+        }
     }
 }
