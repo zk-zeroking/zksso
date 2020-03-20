@@ -50,4 +50,13 @@ class LoginController extends Controller
         }
         redirect()->intended($this->redirectPath());
     }
+    public function showLoginForm(Request $request)
+    {
+        if ($request->has('data')) {
+            $qqLoginUrl = route('qq_login',['data' => $request->get('data')]);
+        } else {
+            $qqLoginUrl = route('qq_login');
+        }
+        return view('app.login')->with('qq_login_url',$qqLoginUrl);
+    }
 }
