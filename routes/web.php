@@ -38,4 +38,4 @@ Route::get('/sso/login/','SSOController@login')->middleware(['sso.referer','auth
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
