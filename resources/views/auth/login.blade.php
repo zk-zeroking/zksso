@@ -153,7 +153,7 @@
                //…
            });
            function qq_login() {
-               window.location = "/qq/login?data=" + "<?php echo $_GET['data'];?>"
+               window.location = "{{$qq_login_url}}"
            }
        </script>
    </div>
