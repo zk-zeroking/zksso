@@ -49,7 +49,7 @@ class LoginController extends Controller
                 $user->id
             );
         }
-        redirect()->intended($this->redirectPath());
+        return redirect()->intended($this->redirectPath());
     }
     public function showLoginForm(Request $request)
     {
