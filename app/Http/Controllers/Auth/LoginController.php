@@ -63,7 +63,9 @@ class LoginController extends Controller
     public function redirectPath()
     {
         if (SSORefererService::getSSORefererAppId()) {
-            return redirect('/sso/login?data ='. SSORefererService::getUrlQuery());
+            return '/sso/login?data ='. SSORefererService::getUrlQuery();
+        } else {
+            return '/';
         }
     }
 }
