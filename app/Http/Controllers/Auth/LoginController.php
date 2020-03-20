@@ -57,6 +57,6 @@ class LoginController extends Controller
         } else {
             $qqLoginUrl = route('qq_login');
         }
-        return view('app.login')->with('qq_login_url',$qqLoginUrl);
+        return view('auth.login')->with('qq_login_url',$qqLoginUrl);
     }
 }
