@@ -31,7 +31,9 @@ class QQLoginCallbackController extends Controller
         if ($thirdAccount->count()) {
             $userid = $thirdAccount->value('user_id');
             $user = User::find($userid);
+            var_dump(1);
             Auth::login($user);
+            var_dump(2);
             return redirect(RefererUser::getCallbackUrl());
         } else {
             return redirect('/login')->with('open_id',$openId)->with('platform','qq');
