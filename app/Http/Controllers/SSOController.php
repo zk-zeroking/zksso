@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\DB;
 class SSOController extends Controller
 {
     public function login(){
+        echo 1;
+        die();
         if(
             DB::table('app')
                 ->leftJoin('app_user','app.id','=','app_user.app_id')

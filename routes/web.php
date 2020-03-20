@@ -28,13 +28,13 @@ Route::middleware(['auth'])->group(function () {
 Route::namespace('Auth')->group(function () {
     Route::namespace('QQ')->group(function () {
         Route::prefix('qq')->group(function () {
-            Route::get('login/','QQLoginController@index')->name('qq_login')->middleware(['sso.referer']);
-            Route::get('login/callback/','QQLoginCallbackController@index')->middleware(['sso.referer']);
+            Route::get('login','QQLoginController@index')->name('qq_login')->middleware(['sso.referer']);
+            Route::get('login/callback','QQLoginCallbackController@index')->middleware(['sso.referer']);
         });
 
     });
 });
-Route::get('/sso/login/','SSOController@login')->middleware(['sso.referer']);
+Route::get('/sso/login','SSOController@login')->middleware(['sso.referer','auth']);
 
 Auth::routes();
 
