@@ -34,7 +34,7 @@ Route::namespace('Auth')->group(function () {
 
     });
 });
-Route::get('/sso/login/','SSOController@login')->middleware(['sso.referer','auth']);
+Route::get('/sso/login/','SSOController@login')->middleware(['sso.referer']);
 
 Auth::routes();
 
