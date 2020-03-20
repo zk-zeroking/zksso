@@ -19,7 +19,7 @@ class SSOReferer
     {
         if( $request->get('data'))
         {
-            $refererData = str_replace('___','/',$request->get('data'));
+            $refererData = $request->get('data');
             $data = RsaService::instance()->decrypt($refererData);
             SSORefererService::setSSORefererAppId($data['app_id']);
             SSORefererService::setSSOCallbackUrl($data['callback']);
