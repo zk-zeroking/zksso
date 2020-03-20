@@ -12,13 +12,14 @@ namespace App\Http\Controllers;
 use App\Http\Service\RsaService;
 use App\Http\Service\SSORefererService;
 use App\Http\Service\SSOTokenService;
+use App\Sso\RefererUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class SSOController extends Controller
 {
     public function login(){
-        echo  SSORefererService::getSSOCallbackUrl();
+        echo  RefererUser::getCallbackUrl();
         die();
         if(
             DB::table('app')
