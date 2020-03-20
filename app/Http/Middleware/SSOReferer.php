@@ -21,6 +21,7 @@ class SSOReferer
         {
             $refererData = $request->get('data');
             $data = RsaService::instance()->decrypt($refererData);
+            var_dump($data);
             SSORefererService::setSSORefererAppId($data['app_id']);
             SSORefererService::setSSOCallbackUrl($data['callback']);
             SSORefererService::setCallbackParam($data['callback_param']);
