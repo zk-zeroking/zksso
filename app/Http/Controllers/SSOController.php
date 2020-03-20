@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\DB;
 class SSOController extends Controller
 {
     public function login(){
-        echo 1;
+        echo  SSORefererService::getSSOCallbackUrl();
         die();
         if(
             DB::table('app')
