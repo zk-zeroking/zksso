@@ -49,7 +49,7 @@ class LoginController extends Controller
                 $user->id
             );
         }
-        redirect()->intended($this->redirectPath($request));
+        redirect()->intended($this->redirectPath());
     }
     public function showLoginForm(Request $request)
     {
@@ -60,10 +60,10 @@ class LoginController extends Controller
         }
         return view('auth.login')->with('qq_login_url',$qqLoginUrl);
     }
-    public function redirectPath(Request $request)
+    public function redirectPath()
     {
         if (SSORefererService::getSSORefererAppId()) {
-            return redirect('/sso/login/'. $request->get('data'));
+            return redirect('/sso/login?data ='. SSORefererService::getUrlQuery());
         }
     }
 }

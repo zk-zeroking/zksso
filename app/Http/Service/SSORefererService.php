@@ -44,4 +44,8 @@ class SSORefererService
         return RefererUser::destruct();
     }
 
+    public static function getUrlQuery(){
+        return $_GET['data'];
+    }
+
 }
