@@ -19,6 +19,14 @@ use Illuminate\Support\Facades\DB;
 class SSOController extends Controller
 {
     public function login(){
+        var_dump([
+            DB::table('app')
+                ->leftJoin('app_user','app.id','=','app_user.app_id')
+                ->where(['app.uuid' => SSORefererService::getSSORefererAppId(), 'app_user.user_id' => Auth::id()])
+                ->toSql(),
+            SSORefererService::getSSORefererAppId(),
+            Auth::id()
+        ]);die();
         if(
             DB::table('app')
                 ->leftJoin('app_user','app.id','=','app_user.app_id')
