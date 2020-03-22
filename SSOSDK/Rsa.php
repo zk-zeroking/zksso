@@ -30,23 +30,34 @@ PUBLICKEY;
     /**
      * 用公钥加密参数
      * @param $data
-     * @param string $encrypted
      * @return string
      */
-    public function encrypt($data,$encrypted = '') {
-        $encrypt = openssl_public_encrypt($data,$encrypted,$this->public_key);
-        return $this->dataHandle($encrypt,'encrypt');
+    public function encrypt($data) {
+        $jsonStr = json_encode($data);
+        $encryptStr = '';
+        foreach (str_split($jsonStr,117) as $str) {
+            $encrypted = '';
+            openssl_public_encrypt($str,$encrypted,$this->public_key);
+            $encryptStr .= $encrypted;
+        }
+        return $this->dataHandle($encryptStr,'encrypt');
     }
 
     /**
      * 解密用私钥加密的参数
      * @param $data
-     * @param string $decrypted
      * @return bool
      */
-    public function decrypt($data,$decrypted='') {
+    public function decrypt($data) {
         $data = $this->dataHandle($data,'decrypt');
-        return openssl_public_decrypt($data,$decrypted,$this->public_key);
+        $decryptStr = '';
+        foreach (str_split($data,128) as $str) {
+            $decrypted='';
+            openssl_public_decrypt($str,$decrypted,$this->public_key);
+            $decryptStr .= $decrypted;
+
+        }
+        return json_decode($decryptStr ,true);
     }
 
     private function dataHandle($data, $type = 'encrypt'){

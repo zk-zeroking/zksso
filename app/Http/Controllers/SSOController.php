@@ -19,8 +19,6 @@ use Illuminate\Support\Facades\DB;
 class SSOController extends Controller
 {
     public function login(){
-        echo  RefererUser::getCallbackUrl();
-        die();
         if(
             DB::table('app')
                 ->leftJoin('app_user','app.id','=','app_user.app_id')

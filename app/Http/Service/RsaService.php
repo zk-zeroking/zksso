@@ -40,10 +40,15 @@ class RsaService
      * @return string
      */
     public function encrypt($data) {
-        $encrypted = '';
         $data = json_encode($data);
-        openssl_private_encrypt($data,$encrypted,$this->private_key);
-        return $this->base64Handle($encrypted,'encrypt');
+        $encryptStr = '';
+        foreach (str_split($data,117) as $str) {
+            $encrypted = '';
+            openssl_private_encrypt($str,$encrypted,$this->private_key);
+            $encryptStr .= $encrypted;
+        }
+
+        return $this->base64Handle($encryptStr,'encrypt');
     }
 
     /**
@@ -52,10 +57,15 @@ class RsaService
      * @return string
      */
     public function pubEncrypt($data) {
-        $encrypted = '';
         $data = json_encode($data);
-        openssl_public_encrypt($data,$encrypted,$this->public_key);
-        return $this->base64Handle($encrypted,'encrypt');
+        $encryptStr = '';
+        foreach (str_split($data,117) as $str) {
+            $encrypted = '';
+            openssl_public_encrypt($str,$encrypted,$this->public_key);
+            $encryptStr .= $encrypted;
+        }
+
+        return $this->base64Handle($encryptStr,'encrypt');
     }
 
     /**
@@ -64,10 +74,15 @@ class RsaService
      * @return bool
      */
     public function decrypt($data) {
-        $decrypted='';
+
         $data = $this->base64Handle($data,'decrypt');
-        openssl_private_decrypt($data,$decrypted,$this->private_key);
-        return json_decode($decrypted,true);
+        $decryptStr = '';
+        foreach (str_split($data,128) as $str) {
+            $decrypted='';
+            openssl_private_decrypt($str,$decrypted,$this->private_key);
+            $decryptStr .= $decrypted;
+        }
+        return json_decode($decryptStr,true);
     }
 
     private function base64Handle($data, $type = 'encrypt'){
